@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  DATABASE_URL: mysql://db:3306/mydb
+  LOG_LEVEL: INFO
+  MAX_CONNECTIONS: "100"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2024-11-30T18:17:28Z"
+  name: app-config
+  namespace: default
+  resourceVersion: "11497"
+  uid: 1382c6ff-7f06-4016-acf6-f4b6210045b2

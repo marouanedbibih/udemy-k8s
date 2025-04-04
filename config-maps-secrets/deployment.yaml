@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmap-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+      - name: configmap-demo
+        image: nginx:1.14.2
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+        env:
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: DB_PASSWORD
+      #   - name: DATABASE_URL
+      #     valueFrom:
+      #       configMapKeyRef:
+      #         name: app-config
+      #         key: DATABASE_URL
+      #   - name: LOG_LEVEL
+      #     valueFrom:
+      #       configMapKeyRef:
+      #         name: app-config
+      #         key: LOG_LEVEL
+      #   - name: MAX_CONNECTIONS
+      #     valueFrom:
+      #       configMapKeyRef:
+      #         name: app-config
+      #         key: MAX_CONNECTIONS
+      #   volumeMounts:
+      #     - name:  config-volume
+      #       mountPath: /etc/config
+      # volumes:
+      #   - name: config-volume
+      #     configMap:
+      #       name: app-config

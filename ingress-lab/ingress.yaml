@@ -4,8 +4,15 @@ metadata:
   name: myingress
   labels:
     name: myingress
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - www.example.com
+        - api.example.com
+      secretName: example-tls-secret
   rules:
   - host: www.example.com
     http:
